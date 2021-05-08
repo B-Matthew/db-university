@@ -1,0 +1,106 @@
+Sulla base di quanto visto a lezione modellizzare la realta' di un'universita' definendo colonne con nome, tipo di dato e vincoli di integrita' per queste entita':
+- dipartimento
+- corso di laurea
+- corso
+- insegnante
+- appello
+- studento
+- esito
+Ogni dipartimento e' composto da corsi di laura, formati da corsi, gestiti da insegnanti, che prevedono appelli per studenti, che avranno un esito finale
+NOTE: come detto in classe, in caso di ambiguita', cercare di immaginare una possibile realta', e nel caso sia una scelta poco chiara, descriverla con poche parole
+
+Database Università
+
+- DIPARTIMENTO
+
+id: SMALLINT; UNIQUE; AUTO_INCREMENTS; NOT NULLABLE
+nome: VARCHAR(128); NOT NULLABLE
+luogo:  VARCHAR(128); NOT NULLABLE
+CAP: TINYINT; NOT NULLABLE
+e-mail: VARCHAR(128); NOT NULLABLE
+data_di_formazione: DATE; NULLABLE
+n_telefono: VARCHAR(32); NOT NULLABLE
+direttore: VARCHAR(32); NOT NULLABLE
+e_mail_direzione: VARCHAR(32); NULLABLE
+descrizione: TEXT; NULLABLE
+rating: TINYINT; DEFAULT(0)
+
+- CORSI DI LAUREA
+
+id: SMALLINT; UNIQUE; AUTO_INCREMENTS; NOT NULLABLE
+nome: VARCHAR(128); NOT NULLABLE
+quantità_corsi: TINYINT; NULLABLE
+data_inizio: DATE; NOT NULLABLE
+data_termine: DATE; NOT NULLABLE
+descrizione: TEXT; NOT NULLABLE
+
+- CORSO
+
+id: SMALLINT; UNIQUE; AUTO_INCREMENTS; NOT NULLABLE
+nome: VARCHAR(128); NOT NULLABLE
+n_esami: TINYINT; NOT NULLABLE
+crediti: TINYINT; DEFAULT(0)
+iscritti: SMALLINT; NOT NULLABLE
+totale_annullamento_iscrizioni: SMALLINT; NOT NULLABLE
+presenze_minime: TINYINT; NOT NULLABLE
+data_inizio: DATE; NOT NULLABLE
+data_termine: DATE; NOT NULLABLE
+descrizione: TEXT; NOT NULLABLE
+
+
+- INSEGNANTE
+
+id: SMALLINT; UNIQUE; AUTO_INCREMENTS; NOT NULLABLE
+nome: VARCHAR(128); NOT NULLABLE
+cognome: VARCHAR(128); NOT NULLABLE
+username: VARCHAR(64); NOT NULLABLE; UNIQUE
+password: VARCHAR(64); NOT NULLABLE
+genere: VARCHAR(16); NOT NULLABLE
+cf: VARCHAR(128); NOT NULLABLE; UNIQUE
+data_nascita:  DATE; NOT NULLABLE
+luogo_nascita: VARCHAR(64); NOT NULLABLE
+CAP: TINYINT; NOT NULLABLE
+e-mail: VARCHAR(128); NOT NULLABLE
+telefono: VARCHAR(32); NOT NULLABLE
+orari: VARCHAR; NOT NULLABLE
+salario: INT; NOT NULLABLE
+ferie: VARCHAR (128); NOT NULLABLE
+descrizione: TEXT; NULLABLE
+
+- APPELLO
+
+id: MEDIUMINT; UNIQUE; AUTO_INCREMENTS; NOT NULLABLE
+nome: VARCHAR(128); NOT NULLABLE
+data_inizio: DATE; NOT NULLABLE
+data_fine: DATE; NOT NULLABLE
+descrizione: TEXT; NULLABLE
+matricola_Studente: VARCHAR; UNIQUE; NOT NULLABLE
+professori:  VARCHAR(128); NOT NULLABLE
+
+- STUDENTE
+
+id: INT; UNIQUE; AUTO_INCREMENTS; NOT NULLABLE
+nome: VARCHAR(128); NOT NULLABLE
+cognome: VARCHAR(128); NOT NULLABLE
+username: VARCHAR(64); NOT NULLABLE; UNIQUE
+password: VARCHAR(64); NOT NULLABLE
+genere: VARCHAR(16); NOT NULLABLE
+e-mail: VARCHAR(128); NOT NULLABLE
+data_nascita:  DATE; NOT NULLABLE
+luogo_nascita: VARCHAR(64); NOT NULLABLE
+cf: VARCHAR(128); NOT NULLABLE; UNIQUE
+CAP: TINYINT; NOT NULLABLE
+n_tel: VARCHAR(32); NOT NULLABLE
+matricola_Studente: VARCHAR; UNIQUE; NOT NULLABLE
+
+- ESITO
+
+id: INT; UNIQUE; AUTO_INCREMENTS; NOT NULLABLE
+matricola_Studente: VARCHAR; UNIQUE; NOT NULLABLE
+professori:  VARCHAR(128); NOT NULLABLE
+presenze: SMALLINT; DEFAULT(0)
+assenze: SMALLINT; DEFAULT(0)
+totale_crediti: TINYINT; NOT NULLABLE
+esito_orale: TINYINT; NOT NULLABLE
+esito_scritto: TINYINT; NOT NULLABLE
+esito_finale: TINYINT; NOT NULLABLE
